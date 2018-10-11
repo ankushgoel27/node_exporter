@@ -1,7 +1,7 @@
 go:
     cgo: true
 repository:
-    path: github.com/prometheus/node_exporter
+    path: github.com/algorand/node_exporter
 build:
     binaries:
         - name: node_exporter
