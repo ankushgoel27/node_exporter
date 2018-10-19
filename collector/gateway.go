@@ -250,8 +250,9 @@ func (c *GatewayCollector) parsePostMetrics(metrics string) {
 				c.postedCollectors = append(c.postedCollectors, *metric)
 				c.labels[metricName] = labelsKey
 			}
-			if counter, err := metric.GetMetricWithLabelValues(labelsValues...); err == nil {
-				if fValue, err := strconv.ParseFloat(value, 64); err == nil {
+			if fValue, err := strconv.ParseFloat(value, 64); err == nil {
+				metric.DeleteLabelValues(labelsValues...)
+				if counter, err := metric.GetMetricWithLabelValues(labelsValues...); err == nil {
 					counter.Add(fValue)
 					c.addExpiringMetric(metricName, labelsValues)
 				}
