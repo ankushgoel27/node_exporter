@@ -97,7 +97,8 @@ func main() {
 		log.Infof(" - %s", n)
 	}
 
-	http.HandleFunc(*metricsPath, handler)
+	collector.DefaultGatewayCollector.SetNextHandler(handler)
+	http.Handle(*metricsPath, collector.DefaultGatewayCollector)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(`<html>
 			<head><title>Node Exporter</title></head>
