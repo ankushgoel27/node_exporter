@@ -116,6 +116,9 @@ func (n nodeCollector) Collect(ch chan<- prometheus.Metric) {
 	for name, c := range n.Collectors {
 		go func(name string, c Collector) {
 			execute(name, c, ch)
+			if promCol, isPromCol := c.(prometheus.Collector); isPromCol {
+				promCol.Collect(ch)
+			}
 			wg.Done()
 		}(name, c)
 	}
