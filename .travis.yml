@@ -8,9 +8,15 @@ language: go
 sudo: required
 matrix:
   include:
-    - name: "Integration tests"
-      os: linux osx
+    - name: "OSX Integration tests"
+      os: osx
       env:
-        - BUILD_TYPE: "integration"
+        - BUILD_TYPE: "package"
+      env:
+        - BUILD_TYPE: "test"
+    - name: "Linux Integration tests"
+      os: linux
+      env:
+        - BUILD_TYPE: "package""
 script:
-  - make package
+  - make $(BUILD_TYPE)
