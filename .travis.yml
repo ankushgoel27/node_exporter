@@ -1,0 +1,18 @@
+os:
+  - linux
+  - osx
+go:
+  - "1.10.3"
+go_import_path: github.com/algorand/node_exporter
+language: go
+sudo: required
+matrix:
+  include:
+    - name: "Integration tests"
+      os: linux
+      env:
+        - BUILD_TYPE: "integration"
+  allow_failures:
+    - os: osx
+script:
+  - make
