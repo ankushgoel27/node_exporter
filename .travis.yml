@@ -15,4 +15,4 @@ matrix:
       os: linux
       env: BUILD_TYPE=package
 script:
-  - make $(BUILD_TYPE)
+  - make $BUILD_TYPE
