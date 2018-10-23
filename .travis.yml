@@ -25,3 +25,5 @@ script:
 after_success:
   - mkdir -p ./s3
   - cp *.tar.gz ./s3/
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then aws s3 cp ./s3/* s3://$ARTIFACT_BUCKET ; fi
+
