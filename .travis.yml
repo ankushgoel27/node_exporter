@@ -9,10 +9,8 @@ sudo: required
 matrix:
   include:
     - name: "Integration tests"
-      os: linux
+      os: linux osx
       env:
         - BUILD_TYPE: "integration"
-  allow_failures:
-    - os: osx
 script:
   - make package
