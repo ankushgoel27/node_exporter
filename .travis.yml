@@ -12,9 +12,5 @@ matrix:
       os: osx
       env:
         - BUILD_TYPE: "package"
-    - name: "Linux Integration tests"
-      os: linux
-      env:
-        - BUILD_TYPE: "package""
 script:
   - make $(BUILD_TYPE)
