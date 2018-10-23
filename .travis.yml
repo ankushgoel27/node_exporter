@@ -5,7 +5,7 @@ go:
   - "1.10.3"
 env: BUILD_TYPE=package
 before_install:
-  - pip install --user aswcli
+  - pip install --user awscli
 go_import_path: github.com/algorand/node_exporter
 language: go
 sudo: required
