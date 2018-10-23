@@ -12,8 +12,6 @@ matrix:
       os: osx
       env:
         - BUILD_TYPE: "package"
-      env:
-        - BUILD_TYPE: "test"
     - name: "Linux Integration tests"
       os: linux
       env:
