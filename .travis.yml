@@ -9,10 +9,10 @@ language: go
 sudo: required
 matrix:
   include:
-    - name: "OSX package"
+    - name: "OSX integration test"
       os: osx
-      env: BUILD_TYPE=package
-    - name: "Linux package"
+      env: BUILD_TYPE=test
+    - name: "Linux integration test"
       os: linux
       env: BUILD_TYPE=test
 script:
