@@ -40,8 +40,15 @@ endif
 
 ifeq ($(OS_detected), Linux)
 	test-e2e := test-e2e
+	package := package
+	PACKAGE_NAME ?= node_exporter-linux-$(MACH).tar.gz
 else
 	test-e2e := skip-test-e2e
+endif
+
+ifeq ($(OS_detected), Darwin)
+	package := package
+	PACKAGE_NAME ?= node_exporter-darwin-stable.tar.gz
 endif
 
 # Use CGO for non-Linux builds.
@@ -85,7 +92,12 @@ $(eval $(call goarch_pair,amd64,386))
 $(eval $(call goarch_pair,mips64,mips))
 $(eval $(call goarch_pair,mips64el,mipsel))
 
-all: style vet staticcheck checkmetrics build test $(cross-test) $(test-e2e)
+all: style vet staticcheck checkmetrics build $(package) test $(cross-test) $(test-e2e)
+
+.PHONY: package
+package: build
+	@echo ">> Packaging binaries"
+	@tar -czvf $(PACKAGE_NAME) ./node_exporter
 
 .PHONY: test
 test: collector/fixtures/sys/.unpacked
