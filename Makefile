@@ -20,8 +20,10 @@ GOHOSTARCH := $(shell $(GO) env GOHOSTARCH)
 PROMTOOL    ?= $(FIRST_GOPATH)/bin/promtool
 
 DOCKER_IMAGE_NAME       ?= node-exporter
-MACH                    ?= $(shell uname -m)
+OS_NAME                 ?= $(shell uname -s | tr '[:upper:]' '[:lower:]')
+MACH                    ?= $(shell uname -m | tr '[:upper:]' '[:lower:]')
 DOCKERFILE              ?= Dockerfile
+PACKAGE_NAME            ?= node_exporter-stable-$(OS_NAME)-$(MACH).tar.gz
 
 STATICCHECK_IGNORE =
 
@@ -41,14 +43,12 @@ endif
 ifeq ($(OS_detected), Linux)
 	test-e2e := test-e2e
 	package := package
-	PACKAGE_NAME ?= node_exporter-linux-$(MACH).tar.gz
 else
 	test-e2e := skip-test-e2e
 endif
 
 ifeq ($(OS_detected), Darwin)
 	package := package
-	PACKAGE_NAME ?= node_exporter-darwin-stable.tar.gz
 endif
 
 # Use CGO for non-Linux builds.
