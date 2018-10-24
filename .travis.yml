@@ -7,8 +7,6 @@ env:
   global:
     - PATH=$HOME/.local/bin:$PATH
     - BUILD_TYPE=package
-before_install:
-  - pip install --user awscli
 go_import_path: github.com/algorand/node_exporter
 language: go
 sudo: required
@@ -23,7 +21,10 @@ matrix:
 script:
   - make $BUILD_TYPE
 after_success:
-  - mkdir -p ./s3
-  - cp *.tar.gz ./s3/
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then aws s3 cp ./s3/* s3://$ARTIFACT_BUCKET ; fi
+  - mkdir -p ./artifacts
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cp *.tar.gz ./artifacts ; fi
+addons:
+  artifacts:
+    s3_region: "us-east-1"
+  debug: true
 
