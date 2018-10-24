@@ -28,7 +28,8 @@ addons:
     s3_region: "us-east-1"
     target_paths:
     # default is /${TRAVIS_REPO_SLUG}/${TRAVIS_BUILD_NUMBER}/${TRAVIS_JOB_NUMBER}
-    # but that wouldn't let us specify the same download address over and over, as the build number / job number advances.
-    - /${TRAVIS_REPO_SLUG}
+    # but that wouldn't let us specify the same download address over and over, as the build number and job number advances.
+    - /${TRAVIS_REPO_SLUG}/latest
+    - /${TRAVIS_REPO_SLUG}/${TRAVIS_BUILD_NUMBER}/${TRAVIS_JOB_NUMBER}
   debug: true
 
