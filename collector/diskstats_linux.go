@@ -179,11 +179,13 @@ func (c *diskstatsCollector) Update(ch chan<- prometheus.Metric) error {
 			continue
 		}
 
-		if len(stats) != len(c.descs) {
+		// OK if collected stats are longer than what's in c.descs: they will be ignored
+		if len(stats) < len(c.descs) {
 			return fmt.Errorf("invalid line for %s for %s", procDiskStats, dev)
 		}
 
-		for i, value := range stats {
+		for i := range c.descs {
+			value := stats[i]
 			v, err := strconv.ParseFloat(value, 64)
 			if err != nil {
 				return fmt.Errorf("invalid value %s in diskstats: %s", value, err)
