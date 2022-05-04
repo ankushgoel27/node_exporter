@@ -1,0 +1,19 @@
+name: "Build"
+on:
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.10.3'
+      - name: build test
+        run: make BUILD_TYPE=test
+      - name: build package
+        run: make BUILD_TYPE=package
+      - uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: "*.tar.gz"
