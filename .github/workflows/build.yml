@@ -13,13 +13,15 @@ jobs:
           go-version: '1.10.3'
       - name: build test
         run: make test
+        working-directory: /home/runner/work/node_exporter/go/src/github.com/algorand/node_exporter
         env:
           GOPATH: /home/runner/work/node_exporter/go
       - name: build package
         run: make package
+        working-directory: /home/runner/work/node_exporter/go/src/github.com/algorand/node_exporter
         env:
           GOPATH: /home/runner/work/node_exporter/go
       - uses: actions/upload-artifact@v3
         with:
           name: package
-          path: "*.tar.gz"
+          path: /home/runner/work/node_exporter/go/src/github.com/algorand/node_exporter/*.tar.gz
