@@ -15,12 +15,12 @@ jobs:
         run: make test
         working-directory: /home/runner/work/node_exporter/node_exporter/go/src/github.com/algorand/node_exporter
         env:
-          GOPATH: /home/runner/work/node_exporter/go
+          GOPATH: /home/runner/work/node_exporter/node_exporter/go
       - name: build package
         run: make package
         working-directory: /home/runner/work/node_exporter/node_exporter/go/src/github.com/algorand/node_exporter
         env:
-          GOPATH: /home/runner/work/node_exporter/go
+          GOPATH: /home/runner/work/node_exporter/node_exporter/go
       - uses: actions/upload-artifact@v3
         with:
           name: package
