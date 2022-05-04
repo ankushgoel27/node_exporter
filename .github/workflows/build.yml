@@ -6,13 +6,19 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
+        with:
+          path: go/src/github.com/algorand/node_exporter
       - uses: actions/setup-go@v3
         with:
           go-version: '1.10.3'
       - name: build test
         run: make test
+        env:
+          GOPATH: /home/runner/work/node_exporter/go
       - name: build package
         run: make package
+        env:
+          GOPATH: /home/runner/work/node_exporter/go
       - uses: actions/upload-artifact@v3
         with:
           name: package
