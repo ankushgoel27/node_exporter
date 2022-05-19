@@ -25,8 +25,6 @@ MACH                    ?= $(shell uname -m | tr '[:upper:]' '[:lower:]')
 DOCKERFILE              ?= Dockerfile
 PACKAGE_NAME            ?= node_exporter-stable-$(OS_NAME)-$(MACH).tar.gz
 
-STATICCHECK_IGNORE =
-
 ifeq ($(OS),Windows_NT)
 	OS_detected := Windows
 else
