@@ -116,7 +116,7 @@ common-docker-tag-latest:
 
 .PHONY: promu
 promu:
-	GOOS= GOARCH= $(GO) install github.com/prometheus/promu@v0.2.0
+	GOOS= GOARCH= $(GO) install github.com/prometheus/promu@v0.4.0
 
 .PHONY: $(STATICCHECK)
 $(STATICCHECK):
