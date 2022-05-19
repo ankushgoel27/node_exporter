@@ -1,3 +1,4 @@
+//go:build !ngateway
 // +build !ngateway
 
 package collector
