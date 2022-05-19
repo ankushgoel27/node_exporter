@@ -3,25 +3,18 @@ on:
   pull_request:
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-11]
     steps:
       - uses: actions/checkout@v3
-        with:
-          path: go/src/github.com/algorand/node_exporter
       - uses: actions/setup-go@v3
         with:
           go-version: '1.17.9'
-      - name: build test
-        run: make test
-        working-directory: /home/runner/work/node_exporter/node_exporter/go/src/github.com/algorand/node_exporter
-        env:
-          GOPATH: /home/runner/work/node_exporter/node_exporter/go
-      - name: build package
-        run: make package
-        working-directory: /home/runner/work/node_exporter/node_exporter/go/src/github.com/algorand/node_exporter
-        env:
-          GOPATH: /home/runner/work/node_exporter/node_exporter/go
+      - run: make test
+      - run: make package
       - uses: actions/upload-artifact@v3
         with:
           name: package
-          path: /home/runner/work/node_exporter/node_exporter/go/src/github.com/algorand/node_exporter/*.tar.gz
+          path: "*.tar.gz"
