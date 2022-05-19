@@ -65,7 +65,7 @@ func TestDiskStatsUpdate(t *testing.T) {
 	}
 
 	// 14 devices reported in fixtures/proc/diskstats
-	if len(metrics) != 14 * len(dsc.(*diskstatsCollector).descs) {
-		t.Errorf("want %d diskstats, got %d", 14 * len(dsc.(*diskstatsCollector).descs), len(metrics))
+	if len(metrics) != 14*len(dsc.(*diskstatsCollector).descs) {
+		t.Errorf("want %d diskstats, got %d", 14*len(dsc.(*diskstatsCollector).descs), len(metrics))
 	}
 }
