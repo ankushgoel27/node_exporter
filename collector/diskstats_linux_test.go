@@ -16,6 +16,9 @@ package collector
 import (
 	"os"
 	"testing"
+
+	"github.com/prometheus/client_golang/prometheus"
+	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 func TestDiskStats(t *testing.T) {
@@ -36,5 +39,33 @@ func TestDiskStats(t *testing.T) {
 
 	if want, got := "68", diskStats["mmcblk0p2"][10]; want != got {
 		t.Errorf("want diskstats mmcblk0p2 %s, got %s", want, got)
+	}
+}
+
+func TestDiskStatsUpdate(t *testing.T) {
+	if _, err := kingpin.CommandLine.Parse([]string{"--path.procfs", "fixtures/proc"}); err != nil {
+		t.Fatal(err)
+	}
+
+	dsc, err := NewDiskstatsCollector()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ch := make(chan prometheus.Metric, 1000)
+	err = dsc.Update(ch)
+	close(ch)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var metrics []prometheus.Metric
+	for m := range ch {
+		metrics = append(metrics, m)
+	}
+
+	// 14 devices reported in fixtures/proc/diskstats
+	if len(metrics) != 14*len(dsc.(*diskstatsCollector).descs) {
+		t.Errorf("want %d diskstats, got %d", 14*len(dsc.(*diskstatsCollector).descs), len(metrics))
 	}
 }
