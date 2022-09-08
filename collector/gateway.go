@@ -218,6 +218,9 @@ func (c *GatewayCollector) parsePostMetrics(metrics string) {
 			if !strings.Contains(l, "}") {
 				continue
 			}
+			if strings.Index(l, "}") < strings.Index(l, "{") {
+				continue
+			}
 			labelsBlock = l[strings.Index(l, "{")+1 : strings.Index(l, "}")]
 		} else {
 			metricName = l[0:strings.Index(l, " ")]
