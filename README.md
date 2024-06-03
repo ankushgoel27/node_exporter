@@ -81,7 +81,7 @@ tcpstat | Exposes TCP connection status information from `/proc/net/tcp` and `/p
 ### Textfile Collector
 
 The textfile collector is similar to the [Pushgateway](https://github.com/prometheus/pushgateway),
-in that it allows exporting of statistics from batch jobs. It can also be used
+allowing to export statistics from batch jobs. It can also be used
 to export static metrics, such as what role a machine has. The Pushgateway
 should be used for service-level metrics. The textfile module is for metrics
 that are tied to a machine.
